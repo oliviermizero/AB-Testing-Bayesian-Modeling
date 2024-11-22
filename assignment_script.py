@@ -8,7 +8,7 @@ import numpy as np
 url = "https://github.com/dustywhite7/Econ8310/raw/master/AssignmentData/cookie_cats.csv"
 ab_test = pd.read_csv(url)
 
-# Preprocessing: Separate data by version (gate_30 and gate_40)
+# Separate data by version (gate_30 and gate_40)
 gate_30_data = ab_test[ab_test['version'] == 'gate_30']
 gate_40_data = ab_test[ab_test['version'] == 'gate_40']
 
