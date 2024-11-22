@@ -8,7 +8,7 @@ import numpy as np
 url = "https://github.com/dustywhite7/Econ8310/raw/master/AssignmentData/cookie_cats.csv"
 ab_test = pd.read_csv(url)
 
-# Separate data by version (gate_30 and gate_40)
+# Preprocessing: Separate data by version (gate_30 and gate_40)
 gate_30_data = ab_test[ab_test['version'] == 'gate_30']
 gate_40_data = ab_test[ab_test['version'] == 'gate_40']
 
@@ -35,7 +35,7 @@ with pm.Model() as model_1_day:
     obs_gate_40 = pm.Bernoulli('obs_gate_40', p=p_gate_40, observed=retention_1_gate_40_obs)
 
     step = pm.Metropolis()
-    trace_1_day = pm.sample(2000, tune=1000, step=step, return_inferencedata=True, random_seed=42)
+    trace_1_day = pm.sample(20000, tune=10000, step=step, chains=3, return_inferencedata=True, random_seed=42)
 
 # Bayesian A/B testing for 7-day retention
 with pm.Model() as model_7_day:
@@ -46,7 +46,7 @@ with pm.Model() as model_7_day:
     obs_gate_40 = pm.Bernoulli('obs_gate_40', p=p_gate_40, observed=retention_7_gate_40_obs)
 
     step = pm.Metropolis()
-    trace_7_day = pm.sample(2000, tune=1000, step=step, return_inferencedata=True, random_seed=42)
+    trace_7_day = pm.sample(20000, tune=10000, step=step, chains=3, return_inferencedata=True, random_seed=42)
 
 # Summarize and visualize results for both tests
 # I got help from Copilot to develop part of this code
