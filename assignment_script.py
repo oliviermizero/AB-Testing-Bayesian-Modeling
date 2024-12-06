@@ -92,12 +92,8 @@ plt.title("Posterior Distribution of $p_{40}$ for 7-Day Retention")
 plt.tight_layout()
 plt.show()
 
-# Summarize 1-day retention model
-# I got help from Copilot for part of this code
-az_summary_1_day = az.summary(trace_1_day, var_names=["p_30", "p_40"], hdi_prob=0.95)
-print("1-Day Retention Summary:\n", az_summary_1_day)
+compare1Day = np.mean([i>j for i, j in zip(list(p_30_samples_1_day), list(p_40_samples_1_day))])*100
+compare7Day = np.mean([i>j for i, j in zip(list(p_30_samples_7_day), list(p_40_samples_7_day))])*100
 
-# Summarize 7-day retention model
-# I got help from Copilot for part of this code
-az_summary_7_day = az.summary(trace_7_day, var_names=["p_30", "p_40"], hdi_prob=0.95)
-print("\n7-Day Retention Summary:\n", az_summary_7_day)
+print ("Percentage for 1DayRetention: ", compare1Day)
+print ("Percentage for 7DayRetention: ", compare7Day)
